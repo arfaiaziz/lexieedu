@@ -18,7 +18,7 @@
                 <tr class="border-0">
                     <th>No</th>
                     <th>ID Transaksi</th>
-                    <th>Nama Pelajar</th>
+                    <th>Nama Instansi</th>
                     <th>Tanggal Transaksi</th>
                     <th>Via Pembayaran</th>
                     <th>Nominal</th>
