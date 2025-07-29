@@ -52,7 +52,7 @@
     </section>
 
     <div class="fixed bottom-6 right-6">
-        <a href="https://wa.me/6281234567890" target="_blank">
+        <a href="https://wa.me/6285223449396" target="_blank">
         <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
         </a>
     </div>

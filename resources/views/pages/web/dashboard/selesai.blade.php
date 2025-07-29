@@ -63,7 +63,7 @@
             <section class="bg-white shadow-lg rounded-3xl mx-6 mt-6 p-8 md:p-10 max-w-2xl mx-auto flex flex-col gap-6 items-center border border-blue-100">
                 <div class="text-center">
                     <div class="text-blue-800 text-xl md:text-2xl font-bold mb-2">
-                        ID Peserta: <span class="font-bold">{{$peserta->id_peserta }}</span>
+                        ID Peserta: [{{$id}}]
                     </div>
                     <div class="text-gray-700 text-lg md:text-xl">
                         Skor Kamu: <span class="font-semibold">{{ round($persentase, 2) }}%</span>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <a href="https://wa.me/6281234567890" target="_blank" class="inline-block bg-button hover:bg-blue-500 transition-colors duration-300 text-white font-semibold py-3 px-8 rounded-full shadow">
+                <a href="https://api.whatsapp.com/send/?phone=6285223449396&text&type=phone_number&app_absent=0" target="_blank" class="inline-block bg-button hover:bg-blue-500 transition-colors duration-300 text-white font-semibold py-3 px-8 rounded-full shadow">
                     Silakan Hubungi Admin
                 </a>
             </section>

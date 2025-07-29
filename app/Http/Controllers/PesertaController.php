@@ -6,6 +6,7 @@ use App\Models\Peserta;
 use App\Models\Instansi;
 use App\Models\Level;
 use Illuminate\Validation\Rule;
+use App\Models\Tes;
 
 
 class PesertaController extends Controller
@@ -56,7 +57,6 @@ class PesertaController extends Controller
 
         $data->map(function($item) {
 
-
             $item->nama_instansi    = $item->intansi ? $item->intansi->nama_instansi : '-';
             $item->tgl_daftar       = date('d-m-Y', strtotime($item->tgl_daftar));
             $item->umur             = $item->umur . ' Tahun';
@@ -68,9 +68,17 @@ class PesertaController extends Controller
                                         <img src="'.asset('assets/icon/icon-hapus.svg').'" class="h-4 h-5">
                                     </a>';
 
-            $item->action       .= '<a href="'.url('download-sertifikat/'.$item->id_peserta).'">
-                                        <img src="'.asset('assets/icon/icon-download.svg').'" class="h-4 h-5">
-                                    </a>';
+            $cekTest = Tes::where('id_peserta', $item->id_peserta)->count();
+
+            if ($cekTest > 0) {
+                $item->action .= '<a href="'.url('download-sertifikat/'.$item->id_peserta).'" class="btn-download">
+                                    <img src="'.asset('assets/icon/icon-download.svg').'" class="h-4 h-5">
+                                </a>';
+            } else {
+                $item->action .= '<a href="#" onclick="alert(\'Data tidak ditemukan, silahkan lakukan tes ulang.\')">
+                                    <img src="'.asset('assets/icon/icon-download.svg').'" class="h-4 h-5 opacity-50">
+                                </a>';
+            }
             return $item;
         });
 

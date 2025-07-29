@@ -72,25 +72,31 @@ class MulaiTesController extends Controller
     }
 
     public function selesaiTest($id){
-        $peserta    = Peserta::where('id_peserta', $id)->first();
+    $peserta    = Peserta::where('id_peserta', $id)->first();
 
-        $cekJawaban = Tes::where('id_peserta', $id)->get();
-        $benar      = 0;
-        $totalsoal  = 0;
-        foreach($cekJawaban as $item){
-            if($item->jawaban_soal == $item->jawaban_peserta){
-                $benar++;
-            }
-            $totalsoal++;
+    $cekJawaban = Tes::where('id_peserta', $id)->get();
+    $benar      = 0;
+    $totalDijawab  = 0;
+    foreach($cekJawaban as $item){
+        if($item->jawaban_soal == $item->jawaban_peserta){
+            $benar++;
         }
-        $persentase = ($benar / $totalsoal) * 100;
-
-        $level          = $this->hasilLevel($persentase);
-        $peserta->level = $level;
-        $peserta->save();
-
-        return view('pages.web.dashboard.selesai', compact('id', 'persentase', 'peserta', 'level'));
+        $totalDijawab++;
     }
+
+    // Tambahkan ini SEBELUM compact()
+    $totalSoalTersedia = Soal::count();
+    $persentase = ($totalSoalTersedia > 0) ? ($benar / $totalSoalTersedia) * 100 : 0;
+
+    $level          = $this->hasilLevel($persentase);
+    $peserta->level = $level;
+    $peserta->save();
+
+    return view('pages.web.dashboard.selesai', compact(
+        'id', 'persentase', 'peserta', 'level', 'benar', 'totalSoalTersedia'
+    ));
+}
+
 
     public function hasilLevel($persentasi)
     {
@@ -140,6 +146,8 @@ public function generateSertifikat(Request $request, $id)
     $outputDocx = storage_path("app/sertifikat_{$filename}.docx");
     $outputPdf = storage_path("app/public/sertifikat/sertifikat_{$filename}.pdf");
     $template->saveAs($outputDocx);
+
+    
 
     // Jalankan konversi ke PDF
     $command = 'soffice --headless --convert-to pdf --outdir ' . dirname($outputPdf) . ' ' . $outputDocx;

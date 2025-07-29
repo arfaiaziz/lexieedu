@@ -126,8 +126,8 @@ class SoalController extends Controller
         ];
 
         if ($request->hasFile('audio')) {
-            if ($soal->audio && \Storage::disk('public')->exists('audio/' . $soal->audio)) {
-                \Storage::disk('public')->delete('audio/' . $soal->audio);
+            if ($soal->audio && \storage::disk('public')->exists('audio/' . $soal->audio)) {
+                \storage::disk('public')->delete('audio/' . $soal->audio);
             }
 
             $file = $request->file('audio');
